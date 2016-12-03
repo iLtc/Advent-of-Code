@@ -1,3 +1,7 @@
+keypad = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+currentY = 1
+currentX = 1
+
 lines = Array.new
 
 while(true)
@@ -10,24 +14,25 @@ while(true)
   lines.push(temp)
 end
 
-current = 5
-
 lines.each do |line|
   line.split("").each do |step|
     case step
       when "U"
-        current -= 3 if current > 3
+        currentY -= 1 if currentY > 0 and keypad[currentY - 1][currentX] != nil
 
       when "D"
-        current += 3 if current < 7
+        currentY += 1 if currentY < 2 and keypad[currentY + 1][currentX] != nil
 
       when "L"
-        current -= 1 unless [1, 4, 7].include?(current)
+        currentX -= 1 if currentX > 0 and keypad[currentY][currentX - 1] != nil
 
       when "R"
-        current += 1 unless [3, 6, 9].include?(current)
+        currentX += 1 if currentX < 2 and keypad[currentY][currentX + 1] != nil
     end
+
   end
 
-  print current
+  print keypad[currentY][currentX]
 end
+
+puts
